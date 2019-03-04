@@ -1,0 +1,29 @@
+# Simple_Tax_Public_Model
+# C++ version
+
+# start by building the basic container
+FROM centos:latest
+MAINTAINER Jessica Kelly <jkelly@urban.org>
+RUN yum update -y
+# add cpp
+RUN yum install -y gcc-c++ gdb make
+# and python and related requirements
+RUN yum -y install epel-release && yum clean all
+RUN yum -y install python-pip && yum clean all
+
+
+# build the model code - note the copy from the parent directory of the bash script and requirements
+COPY CPP/Makefile run_cpp.sh requirements.txt CPP/*.cpp CPP/*.h CPP/parameterOptions.csv /CPP/
+COPY data/Demo.csv /data/
+COPY summarize/create_summary_tables.py /summarize/
+
+# set working directory to CPP and then build the model
+WORKDIR /CPP/
+#add python requirements
+RUN pip install -r requirements.txt
+RUN make all
+
+# configure the container to run the executable by default
+# CMD ["./cppmodel"] #this is simplest way to run the exe, but need more steps so use bash
+ENTRYPOINT ["sh", "/CPP/run_cpp.sh"]
+

@@ -1,0 +1,22 @@
+#Simple_Tax_Public_Model
+#Python Version, practice commit to test docker automated build
+
+# start by building the basic container
+FROM python:3
+MAINTAINER Jessica Kelly <jkelly@urban.org>
+#install pip
+RUN pip install --upgrade pip
+
+# build the model code - note the copy from the parent directory of the bash script and requirements
+COPY run_python.sh requirements.txt Python/*.py Python/parameterOptions.csv /Python/
+COPY data/Demo.csv /data/
+COPY summarize/create_summary_tables.py /summarize/
+
+# set working directory to CPP and then build the model
+WORKDIR /Python/
+#add python requirements
+RUN pip install -r requirements.txt
+
+# configure the container to run the executable by default
+# CMD ["./cppmodel"] #this is simplest way to run the exe, but need more steps so use bash
+ENTRYPOINT ["sh", "/Python/run_python.sh"]
