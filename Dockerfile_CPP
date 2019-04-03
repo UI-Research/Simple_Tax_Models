@@ -15,7 +15,8 @@ RUN yum -y install python-pip && yum clean all
 # build the model code - note the copy from the parent directory of the bash script and requirements
 COPY CPP/Makefile run_cpp.sh requirements.txt CPP/*.cpp CPP/*.h CPP/parameterOptions.csv /CPP/
 COPY data/Demo.csv /data/
-COPY summarize/create_summary_tables.py /summarize/
+# were we to run summarize directly from the container, it would go here
+# COPY summarize/create_summary_tables.py /summarize/
 
 # set working directory to CPP and then build the model
 WORKDIR /CPP/
@@ -26,4 +27,3 @@ RUN make all
 # configure the container to run the executable by default
 # CMD ["./cppmodel"] #this is simplest way to run the exe, but need more steps so use bash
 ENTRYPOINT ["sh", "/CPP/run_cpp.sh"]
-

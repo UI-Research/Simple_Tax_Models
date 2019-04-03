@@ -15,7 +15,8 @@ RUN yum -y install python-pip && yum clean all
 # build the model code - note the copy from the parent directory of the bash script and requirements
 COPY Fortran/Makefile run_fortran.sh requirements.txt Fortran/*.f90 Fortran/parameterOptions.csv /Fortran/
 COPY data/Demo.csv /data/
-COPY summarize/create_summary_tables.py /summarize/
+# were we to run summarize directly from the container, it would go here
+# COPY summarize/create_summary_tables.py /summarize/
 
 # set working directory to Fortran and then build the model
 WORKDIR /Fortran/

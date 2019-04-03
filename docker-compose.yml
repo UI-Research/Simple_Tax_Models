@@ -1,6 +1,11 @@
-version: '3'
+version: '2'
 services:
-  app:
-    container_name: model
-    build: .
-    command: run_cpp.sh
+  runmodel:
+    image: jannekelly/simple_tax_models
+    stdin_open: true
+    tty: true
+    labels:
+      io.rancher.container.start_once: 'true'
+      io.rancher.container.pull_image: always
+      io.rancher.scheduler.global: 'true'
+    command: [ "{PARAMETER_FILE}","{OUTPUT_FILE}" ]
