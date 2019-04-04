@@ -10,7 +10,9 @@ RUN yum install -y gcc-gfortran gdb make
 # and python and related requirements
 RUN yum -y install epel-release && yum clean all
 RUN yum -y install python-pip && yum clean all
-
+#add aws cli
+RUN pip install awscli
+ENV REGION=us-east-1
 
 # build the model code - note the copy from the parent directory of the bash script and requirements
 COPY Fortran/Makefile run_fortran.sh requirements.txt Fortran/*.f90 Fortran/parameterOptions.csv /Fortran/
