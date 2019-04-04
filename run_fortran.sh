@@ -6,7 +6,7 @@ echo "Attempting download : $KEY"
 
 for KEY
 do
-  aws s3 cp "$KEY" /parameters
+  aws s3 cp "$KEY" "$1"
 done
 
 echo "running fortran"
