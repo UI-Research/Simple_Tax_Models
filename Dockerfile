@@ -17,7 +17,7 @@ ENV REGION=us-east-1
 # build the model code - note the copy from the parent directory of the bash script and requirements
 COPY Fortran/Makefile run_fortran.sh requirements.txt Fortran/*.f90 Fortran/parameterOptions.csv /Fortran/
 COPY data/Demo.csv /data/
-COPY summarize/create_summary_tables.py /summarize/
+RUN mkdir /param
 
 # set working directory to Fortran and then build the model
 WORKDIR /Fortran/
