@@ -2,7 +2,7 @@
 # expects two arguments, first for parameter file, second for output file
 # copy the parameter file
 KEY="s3://mic.urban.org/tpc/simple-tax-model/"
-KEY = "$KEY$1"
+$KEY = "$KEY$1"
 echo "Attempting download : $KEY"
 
 for KEY
