@@ -6,7 +6,7 @@ echo "Attempting download : $KEY"
 # copy parameter file
 for KEY
 do
-  aws s3 cp "$KEY" /param
+  aws s3 cp $KEY /param
 done
 PARAMETER_PATH="/param/$1"
 
