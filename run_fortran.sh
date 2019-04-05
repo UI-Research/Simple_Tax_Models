@@ -12,11 +12,12 @@ echo "Attempting download : $FILE"
 aws s3 cp $FILE $1
 #done
 
-
+#need a little tweak to output file name
+OUTNAME="$2.csv"
 echo "running fortran"
-./fortmodel "$1" "$2"
+./fortmodel "$1" "$OUTNAME"
 echo "fortran complete"
 
 # copy results
-OUTFILE="s3://mic.urban.org/tpc/simple-tax-model/$2"
-aws s3 cp $2 $OUTFILE
+OUTFILE="s3://mic.urban.org/tpc/simple-tax-model/$2.csv"
+aws s3 cp $OUTNAME $OUTFILE
