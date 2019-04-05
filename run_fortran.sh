@@ -14,7 +14,9 @@ aws s3 cp $FILE $1
 
 
 echo "running fortran"
-./Fortran/fortmodel "$1" "$2"
+./fortmodel "$1" "$2"
 echo "fortran complete"
 
 # copy results
+OUTFILE="s3://mic.urban.org/tpc/simple-tax-model/$2"
+aws s3 cp $2 $OUTFILE
