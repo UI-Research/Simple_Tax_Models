@@ -6,8 +6,8 @@ echo "Attempting download : $KEY"
 # copy parameter file
 for KEY
 do
-  aws s3 ls "$KEY"
-  aws s3 cp "$KEY" parameterOptions_Standard_1600.csv
+  aws s3 ls s3://mic.urban.org/tpc/simple-tax-model/
+  aws s3 cp $KEY parameterOptions_Standard_1600.csv
 done
 
 
