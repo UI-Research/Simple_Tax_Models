@@ -18,10 +18,10 @@ sudo chmod +x /usr/local/sbin/rancher-compose
 rm -r rancher-compose-v0.12.5
 
 # copy rancher-compose python script and supporting files from s3
-sudo aws s3 cp s3://mic.urban.org/tpc/simple-tax-model/run-rancher-compose.py /usr/local/sbin/run-rancher-compose.py
-sudo aws s3 cp s3://mic.urban.org/tpc/simple-tax-model/docker-compose-job-submitter-template.yml /usr/local/sbin/docker-compose-job-submitter-template.yml
-sudo aws s3 cp s3://mic.urban.org/tpc/simple-tax-model/rancher-compose.yml /usr/local/sbin/rancher-compose.yml
-sudo aws s3 cp s3://mic.urban.org/tpc/simple-tax-model/credentials.py /usr/local/sbin/credentials.py
+sudo aws s3 cp s3://your_bucket/run-rancher-compose.py /usr/local/sbin/run-rancher-compose.py
+sudo aws s3 cp s3://your_bucket/simple-tax-model/docker-compose-job-submitter-template.yml /usr/local/sbin/docker-compose-job-submitter-template.yml
+sudo aws s3 cp s3://your_bucket/simple-tax-model/rancher-compose.yml /usr/local/sbin/rancher-compose.yml
+sudo aws s3 cp s3://your_bucket/simple-tax-model/credentials.py /usr/local/sbin/credentials.py
 
 # create empty docker-compose file with correct permissions
 sudo touch /usr/local/sbin/docker-compose-job-submitter.yml
