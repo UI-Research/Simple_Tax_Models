@@ -10,7 +10,8 @@ RUN pip install --upgrade pip
 # build the model code - note the copy from the parent directory of the bash script and requirements
 COPY run_python.sh requirements.txt Python/*.py Python/parameterOptions.csv /Python/
 COPY data/Demo.csv /data/
-COPY summarize/create_summary_tables.py /summarize/
+# were we to run summarize directly from the container, it would go here
+# COPY summarize/create_summary_tables.py /summarize/
 
 # set working directory to CPP and then build the model
 WORKDIR /Python/

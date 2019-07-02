@@ -82,7 +82,9 @@ if __name__ == "__main__":
 
     #print(results)
 
-    with open('summary_output.csv', 'w') as f:
-        writer = csv.writer(f)
-        for key, value in results.items():
-            writer.writerow([key, value])
+    #with open('summary_output.csv', 'w') as f:
+    #    writer = csv.writer(f)
+    #    for key, value in results.items():
+    #        writer.writerow([key, value])
+    # this does the above in one line.
+    pd.DataFrame.from_dict(data=results, orient='index').to_csv('summary_output.csv', header=False)

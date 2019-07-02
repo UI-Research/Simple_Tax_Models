@@ -1,5 +1,5 @@
 # Simple_Tax_Public_Model
-# Fortran version, practice commit to test docker autobuild
+# Fortran version
 
 # start by building the basic container
 FROM centos:latest
@@ -10,12 +10,13 @@ RUN yum install -y gcc-gfortran gdb make
 # and python and related requirements
 RUN yum -y install epel-release && yum clean all
 RUN yum -y install python-pip && yum clean all
+RUN pip install awscli
 
+ENV REGION=us-east-1
 
 # build the model code - note the copy from the parent directory of the bash script and requirements
 COPY Fortran/Makefile run_fortran.sh requirements.txt Fortran/*.f90 Fortran/parameterOptions.csv /Fortran/
 COPY data/Demo.csv /data/
-COPY summarize/create_summary_tables.py /summarize/
 
 # set working directory to Fortran and then build the model
 WORKDIR /Fortran/

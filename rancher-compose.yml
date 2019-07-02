@@ -1,0 +1,4 @@
+version: '2'
+services:
+  runmodel:
+    start_on_create: false
