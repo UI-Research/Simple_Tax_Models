@@ -19,5 +19,5 @@ echo "running fortran"
 echo "fortran complete"
 
 # copy results
-OUTFILE="s3://mic.urban.org/tpc/simple-tax-model/$2.csv"
+OUTFILE="s3://mic.urban.org/tpc/simple-tax-model-out/$2.csv"
 aws s3 cp $OUTNAME $OUTFILE

@@ -1,0 +1,11 @@
+version: '2'
+services:
+  runmodel:
+    image: jannekelly/simple_tax_models
+    stdin_open: true
+    tty: true
+    labels:
+      io.rancher.container.start_once: 'false'
+      io.rancher.container.pull_image: always
+      io.rancher.scheduler.global: 'true'
+    command: [ "{PARAMETER_FILE}","{OUTPUT_FILE}" ]

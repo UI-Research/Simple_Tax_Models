@@ -5,16 +5,16 @@ import subprocess
 import sys
 import time
 
+from credentials import *
+
 # create submission json manually as simply the list of parameter files
 # we want to run.
-def create_summission_file:
-    submission_file = {"parameter_list":[{"Key":"parameterOptions_Standard_1600.csv"},{"Key":"parameterOptions_Standard_1700.csv"},{"Key":"parameterOptions_Standard_1800.csv"}]}
-    return submission_file;
 
 # read in submission json
-def submit_run(submission_file):
-    with open(submission_file) as f:
-        submission = json.load(f)
+def submit_run():
+    submission = {"parameter_list":[{"Key":"parameterOptions_Standard_1600.csv"},{"Key":"parameterOptions_Standard_1700.csv"},{"Key":"parameterOptions_Standard_1800.csv"}]}
+    #f = json.dumps(submission_file)
+    #submission = json.load(f)
 
     PARAMETER_LIST = submission['parameter_list']
     TOTAL_JOBS = len(PARAMETER_LIST)
@@ -26,7 +26,6 @@ def submit_run(submission_file):
 
     start = datetime.datetime.utcnow()
     for i in range(0, len(PARAMETER_LIST)):
-        connection = get_db_connection()
         START_TIME = datetime.datetime.utcnow()
         PARAMETER_FILE = PARAMETER_LIST[i]['Key']
         OUTPUT_FILE = "modelRun"+str(i)
@@ -36,16 +35,16 @@ def submit_run(submission_file):
                                     OUTPUT_FILE = OUTPUT_FILE)
 
         # rewrite yaml
-        with open('/usr/local/sbin/docker-compose{}.yml'.format(i), 'w') as f:
+        with open('/usr/local/sbin/docker-compose-job-submitter-{}.yml'.format(i), 'w') as f:
             f.write(data)
 
         # set args and call from within python
         args = ['/usr/local/sbin/rancher-compose',
                 '--project-name',
-                MIC_JOB_ID,
+                OUTPUT_FILE,
                 '--verbose',
                 '--file',
-                '/usr/local/sbin/docker-compose{}.yml'.format(i),
+                '/usr/local/sbin/docker-compose-job-submitter-{}.yml'.format(i),
                 '--url',
                 RANCHER_URL,
                 '--access-key',
@@ -62,4 +61,4 @@ def submit_run(submission_file):
 
 if __name__ == '__main__':
     template_file = sys.argv[1]
-    submit_run(submission_file)
+    submit_run()
